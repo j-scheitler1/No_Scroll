@@ -1,0 +1,8 @@
+Must Haves
+1. Implement Jump to Next Breakpoint
+2. Implement Jump to Previous Breakpoint
+3. Implement Jump to Different File
+4. Map these to Keyboard Shortcuts
+
+Extras
+1. Add Custom Keybindings

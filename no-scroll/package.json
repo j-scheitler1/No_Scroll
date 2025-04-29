@@ -14,8 +14,16 @@
   "contributes": {
     "commands": [
       {
-        "command": "no-scroll.helloWorld",
-        "title": "Hello World"
+        "command": "no-scroll.jumpToNextBreakpoint",
+        "title": "Jump to Next Breakpoint"
+      }
+      
+    ],
+    "keybindings": [
+      {
+        "command": "no-scroll.jumpToNextBreakpoint",
+        "key": "ctrl+alt+n",
+        "when": "editorTextFocus"
       }
     ]
   },
