@@ -1,0 +1,27 @@
+# VS Code settings
+.vscode/
+.vscode-test/  # 🛑 Important: prevent test VS Code builds from being committed
+
+# Output and build artifacts
+out/
+dist/
+coverage/
+
+# Node modules
+node_modules/
+
+# Logs and OS junk
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.tsbuildinfo
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
+
+# Optional: ignore compiled test output if you're transpiling tests
+src/test/**/*.js
