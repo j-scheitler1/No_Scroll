@@ -3,6 +3,7 @@
   "displayName": "No Scroll",
   "description": "Easily Traverse around any file through breakpoints.",
   "publisher": "Josh Scheitler",
+  "icon": "No_Scroll/images/logo_128.jpg",
   "repository": {
     "type": "git",
     "url": "https://github.com/j-scheitler1/No_Scroll.git"

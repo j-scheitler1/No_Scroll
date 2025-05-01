@@ -6,3 +6,5 @@ Must Haves
 
 Extras
 1. Add Custom Keybindings
+2. Add Toggle Between Files
+3. Add Undo Button
