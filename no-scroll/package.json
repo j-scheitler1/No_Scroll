@@ -15,7 +15,13 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:no-scroll.jumpToNextBreakpoint",
+    "onCommand:no-scroll.jumpToPreviousBreakpoint",
+    "onCommand:no-scroll.setBreakpoint",
+    "onCommand:no-scroll.removeAllBreakpoints",
+    "onCommand:no-scroll.toggleBetweenFiles"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -34,6 +40,10 @@
       {
         "command": "no-scroll.removeAllBreakpoints",
         "title": "Clear All Breakpoints"
+      },
+      {
+        "command": "no-scroll.toggleBetweenFiles",
+        "title": "Toggle Between Files"
       }
     ],
     "keybindings": [
@@ -55,6 +65,11 @@
       {
         "command": "no-scroll.removeAllBreakpoints",
         "key": "ctrl+shift+d",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "no-scroll.toggleBetweenFiles",
+        "key": "ctrl+shift+a",
         "when": "editorTextFocus"
       }
     ]
