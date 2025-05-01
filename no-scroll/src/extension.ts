@@ -94,34 +94,24 @@ export function activate(context: vscode.ExtensionContext) {
 		//Get the line number where the cursor is.
 		const currentLine = activeEditor.selection.active.line;
 
-		//Get all breakpoints and sort them in descending order.
+		//Get all breakpoints and sort them.
 		const sorted = fileBreakpoints
 			.map(bp => bp.location.range.start.line)
-			.sort((a, b) => a - b);
+			.sort((a, b) => b - a);
 
 		//Get the first line that is less than the current.
-		let previousLine: number | undefined = undefined;
-		for(let i = sorted.length - 1; i >= 0; i--){
-			if(sorted[i] < currentLine){
-				previousLine = sorted[i];
-				break;
-			}
-		}
+		const previousLine = sorted.find(line => line < currentLine);
 
-		//If it exists then go to it, otherwise wrap to the last.
-		//CHANGE THIS LINE IF JOSH DOESN'T WANT THAT IMPLEMENTED.
-		const targetLine = previousLine !== undefined ? previousLine : sorted[sorted.length - 1];
+		//If it exists then go to it, otherwise wrap to the first.
+		const targetLine = previousLine !== undefined ? previousLine : sorted[0];
 
-		setTimeout(() => {
-			//Move cursor to the beginning of the target line.
-			activeEditor.selection = new vscode.Selection(targetLine, 0, targetLine, 0);
-
-			//Scroll so the line is in a good spot on the screen.
-			activeEditor.revealRange(
-				new vscode.Range(Math.max(targetLine - 3, 0), 0, targetLine, 0),
-				vscode.TextEditorRevealType.AtTop
-			);
-		}, 10);
+		//Move cursor to the beginning of the target line.
+		activeEditor.selection = new vscode.Selection(targetLine, 0, targetLine, 0);
+		//Scroll so the line is in a good spot on the screen.
+		activeEditor.revealRange(
+			new vscode.Range(Math.max(targetLine - 3, 0), 0, targetLine, 0),
+			vscode.TextEditorRevealType.AtTop
+		);
 
 	});
 
