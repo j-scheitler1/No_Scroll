@@ -1,7 +1,12 @@
 {
   "name": "no-scroll",
   "displayName": "No Scroll",
-  "description": "Easily Traverse around any file",
+  "description": "Easily Traverse around any file through breakpoints.",
+  "publisher": "Josh Scheitler",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/j-scheitler1/No_Scroll.git"
+  },
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.99.0"
@@ -16,13 +21,39 @@
       {
         "command": "no-scroll.jumpToNextBreakpoint",
         "title": "Jump to Next Breakpoint"
+      },
+      {
+        "command": "no-scroll.jumpToPreviousBreakpoint",
+        "title": "Jump to Previous Breakpoint"
+      },
+      {
+        "command": "no-scroll.setBreakpoint",
+        "title": "Set Breakpoint"
+      },
+      {
+        "command": "no-scroll.removeAllBreakpoints",
+        "title": "Clear All Breakpoints"
       }
-      
     ],
     "keybindings": [
       {
         "command": "no-scroll.jumpToNextBreakpoint",
-        "key": "ctrl+alt+n",
+        "key": "ctrl+d",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "no-scroll.jumpToPreviousBreakpoint",
+        "key": "ctrl+s",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "no-scroll.setBreakpoint",
+        "key": "ctrl+b",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "no-scroll.removeAllBreakpoints",
+        "key": "ctrl+shift+d",
         "when": "editorTextFocus"
       }
     ]
