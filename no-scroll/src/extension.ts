@@ -18,8 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
 		const fileBreakpoints = breakpoints.filter(bp => 
 			bp instanceof vscode.SourceBreakpoint &&
 			bp.location.uri.toString() === uri.toString()
-		) as vscode.SourceBreakpoint[];
-		
+		) as vscode.SourceBreakpoint[];	
 		return fileBreakpoints.length > 0 ? fileBreakpoints : undefined;
 	}
 	function saveAllBreakpoints() {
