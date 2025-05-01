@@ -38,7 +38,7 @@
       {
         "command": "no-scroll.toggleBetweenFiles",
         "title": "Toggle Between Files",
-      }
+      },
       {
         "command": "no-scroll.restoreAllBreakpoints",
         "title": "Restore Breakpoints"
