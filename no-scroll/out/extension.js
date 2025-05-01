@@ -205,7 +205,6 @@ function activate(context) {
         vscode.debug.addBreakpoints(lastSavedBreakpoints);
         vscode.window.showInformationMessage('Saved breakpoints restored.');
     });
-  
     context.subscriptions.push(toggleBetweenFiles);
     context.subscriptions.push(jumpToNextBreakpoint);
     context.subscriptions.push(jumpToPreviousBreakpoint);

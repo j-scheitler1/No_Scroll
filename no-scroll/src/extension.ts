@@ -165,6 +165,7 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.debug.removeBreakpoints(breakpoints);
 		vscode.window.showInformationMessage('All breakpoints removed.');
 	});
+	
 	let toggleBetweenFiles = vscode.commands.registerCommand('no-scroll.toggleBetweenFiles', async () => {
 		const activeEditor = vscode.window.activeTextEditor;
 		if (!activeEditor) {
@@ -206,6 +207,7 @@ export function activate(context: vscode.ExtensionContext) {
 			vscode.window.showErrorMessage('Failed to open the next file.');
 		}
 	});
+
 	let restoreAllBreakpoints = vscode.commands.registerCommand('no-scroll.restoreAllBreakpoints', () => {
 		if(lastSavedBreakpoints.length === 0){
 			vscode.window.showInformationMessage('No saved breakpoints to restore.');
