@@ -38,12 +38,24 @@ exports.deactivate = deactivate;
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 const vscode = __importStar(require("vscode"));
+let lastSavedBreakpoints = [];
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 function activate(context) {
     // Use the console to output diagnostic information (console.log) and errors (console.error)
     // This line of code will only be executed once when your extension is activated
     console.log('Congratulations, No Scroll is now active!');
+    function getFileBreakpoints(uri) {
+        // Filter to breakpoints in the current file
+        const breakpoints = vscode.debug.breakpoints;
+        const fileBreakpoints = breakpoints.filter(bp => bp instanceof vscode.SourceBreakpoint &&
+            bp.location.uri.toString() === uri.toString());
+        return fileBreakpoints.length > 0 ? fileBreakpoints : undefined;
+    }
+    function saveAllBreakpoints() {
+        lastSavedBreakpoints = vscode.debug.breakpoints.slice();
+        vscode.window.showInformationMessage('Breakpoints Saved.');
+    }
     let jumpToNextBreakpoint = vscode.commands.registerCommand('no-scroll.jumpToNextBreakpoint', () => {
         // Get the current breakpoints in the file
         const breakpoints = vscode.debug.breakpoints;
@@ -57,15 +69,9 @@ function activate(context) {
             vscode.window.showInformationMessage('No active editor.');
             return;
         }
-        const currentFile = activeEditor.document.uri.toString();
-        // Filter to breakpoints in the current file
-        const fileBreakpoints = breakpoints.filter(bp => {
-            if (bp instanceof vscode.SourceBreakpoint) {
-                return bp.location.uri.toString() === currentFile;
-            }
-            return false;
-        });
-        if (fileBreakpoints.length === 0) {
+        //Get all the breakpoints in the file
+        const fileBreakpoints = getFileBreakpoints(activeEditor.document.uri);
+        if (!fileBreakpoints) {
             vscode.window.showInformationMessage('No breakpoints in this file.');
             return;
         }
@@ -90,17 +96,15 @@ function activate(context) {
             vscode.window.showInformationMessage('No breakpoints set.');
             return;
         }
+        // Get the currently active editor
         const activeEditor = vscode.window.activeTextEditor;
         if (!activeEditor) {
             vscode.window.showInformationMessage('No active editor.');
             return;
         }
-        const currentFile = activeEditor.document.uri.toString();
-        const fileBreakpoints = breakpoints.filter(bp => {
-            return bp instanceof vscode.SourceBreakpoint &&
-                bp.location.uri.toString() === currentFile;
-        });
-        if (fileBreakpoints.length === 0) {
+        //Get all the breakpoints in the file
+        const fileBreakpoints = getFileBreakpoints(activeEditor.document.uri);
+        if (!fileBreakpoints) {
             vscode.window.showInformationMessage('No breakpoints in this file.');
             return;
         }
@@ -138,19 +142,39 @@ function activate(context) {
             vscode.debug.addBreakpoints([breakpoint]);
         }
     });
-    let removeAllBreakpoints = vscode.commands.registerCommand('no-scroll.removeAllBreakpoints', () => {
+    let removeAllBreakpoints = vscode.commands.registerCommand('no-scroll.removeAllBreakpoints', async () => {
         const breakpoints = vscode.debug.breakpoints;
         if (breakpoints.length === 0) {
             vscode.window.showInformationMessage('No breakpoints set.');
             return;
         }
+        const answer = await vscode.window.showQuickPick([
+            'Save and Remove Breakpoints',
+            'Remove without Saving',
+            'Cancel'
+        ], {
+            placeHolder: 'Do you want to save the current breakpoints before removing them?'
+        });
+        if (answer === 'Cancel')
+            return;
+        if (answer === 'Save and Remove Breakpoints')
+            saveAllBreakpoints();
         vscode.debug.removeBreakpoints(breakpoints);
         vscode.window.showInformationMessage('All breakpoints removed.');
+    });
+    let restoreAllBreakpoints = vscode.commands.registerCommand('no-scroll.restoreAllBreakpoints', () => {
+        if (lastSavedBreakpoints.length === 0) {
+            vscode.window.showInformationMessage('No saved breakpoints to restore.');
+            return;
+        }
+        vscode.debug.addBreakpoints(lastSavedBreakpoints);
+        vscode.window.showInformationMessage('Saved breakpoints restored.');
     });
     context.subscriptions.push(jumpToNextBreakpoint);
     context.subscriptions.push(jumpToPreviousBreakpoint);
     context.subscriptions.push(setBreakpoint);
     context.subscriptions.push(removeAllBreakpoints);
+    context.subscriptions.push(restoreAllBreakpoints);
 }
 // This method is called when your extension is deactivated
 function deactivate() { }

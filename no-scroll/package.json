@@ -34,6 +34,10 @@
       {
         "command": "no-scroll.removeAllBreakpoints",
         "title": "Clear All Breakpoints"
+      },
+      {
+        "command": "no-scroll.restoreAllBreakpoints",
+        "title": "Restore Breakpoints"
       }
     ],
     "keybindings": [
@@ -55,6 +59,11 @@
       {
         "command": "no-scroll.removeAllBreakpoints",
         "key": "ctrl+shift+d",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "no-scroll.restoreAllBreakpoints",
+        "key": "ctrl+shift+s",
         "when": "editorTextFocus"
       }
     ]
