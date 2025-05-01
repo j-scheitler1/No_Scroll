@@ -43,7 +43,9 @@
       },
       {
         "command": "no-scroll.toggleBetweenFiles",
-        "title": "Toggle Between Files"
+        "title": "Toggle Between Files",
+        "command": "no-scroll.restoreAllBreakpoints",
+        "title": "Restore Breakpoints"
       }
     ],
     "keybindings": [
@@ -70,6 +72,8 @@
       {
         "command": "no-scroll.toggleBetweenFiles",
         "key": "ctrl+shift+a",
+        "command": "no-scroll.restoreAllBreakpoints",
+        "key": "ctrl+shift+s",
         "when": "editorTextFocus"
       }
     ]
