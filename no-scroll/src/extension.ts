@@ -35,6 +35,8 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 			return false;
 		}) as vscode.SourceBreakpoint[];
+
+		fileBreakpoints.sort((a, b) => a.location.range.start.line - b.location.range.start.line);
 		
 		if (fileBreakpoints.length === 0) {
 			vscode.window.showInformationMessage('No breakpoints in this file.');
@@ -56,52 +58,53 @@ export function activate(context: vscode.ExtensionContext) {
 		const firstLine = firstBreakpoint.location.range.start.line;
 		activeEditor.selection = new vscode.Selection(firstLine, 0, firstLine, 0);
 		activeEditor.revealRange(new vscode.Range(firstLine, 0, firstLine, 0));
-
 	});
 
 	let jumpToPreviousBreakpoint = vscode.commands.registerCommand('no-scroll.jumpToPreviousBreakpoint', () => {
 
-				const breakpoints = vscode.debug.breakpoints;
-				if (breakpoints.length === 0) {
-					vscode.window.showInformationMessage('No breakpoints set.');
-					return;
-				}
+		const breakpoints = vscode.debug.breakpoints;
+			if (breakpoints.length === 0) {
+				vscode.window.showInformationMessage('No breakpoints set.');
+				return;
+			}
 		
-			
-				const activeEditor = vscode.window.activeTextEditor;
-				if (!activeEditor) {
-					vscode.window.showInformationMessage('No active editor.');
-					return;
-				}
+		const activeEditor = vscode.window.activeTextEditor;
+			if (!activeEditor) {
+				vscode.window.showInformationMessage('No active editor.');
+				return;
+			}
 		
-				const currentFile = activeEditor.document.uri.toString();
+		const currentFile = activeEditor.document.uri.toString();
 				
-				const fileBreakpoints = breakpoints.filter(bp => {
-					if (bp instanceof vscode.SourceBreakpoint) {
-						return bp.location.uri.toString() === currentFile;
-					}
-					return false;
-				}) as vscode.SourceBreakpoint[];
-		
-				if (fileBreakpoints.length === 0) {
-					vscode.window.showInformationMessage('No breakpoints in this file.');
-					return;
-				}
+		const fileBreakpoints = breakpoints.filter(bp => {
+			if (bp instanceof vscode.SourceBreakpoint) {
+				return bp.location.uri.toString() === currentFile;
+			}
+				return false;
+		}) as vscode.SourceBreakpoint[];
 
-				for (let i = 0; i < fileBreakpoints.length; i++) {
-					const breakpoint = fileBreakpoints[i];
-					const line = breakpoint.location.range.start.line;
+		fileBreakpoints.sort((a, b) => b.location.range.start.line - a.location.range.start.line);
 		
-					if (line < activeEditor.selection.active.line) {
-						activeEditor.selection = new vscode.Selection(line, 0, line, 0);
-						activeEditor.revealRange(new vscode.Range(line, 0, line, 0));
-						return;
-					}
-				}
+		if (fileBreakpoints.length === 0) {
+			vscode.window.showInformationMessage('No breakpoints in this file.');
+			return;
+		}
+
+		for (let i = 0; i < fileBreakpoints.length; i++) {
+			const breakpoint = fileBreakpoints[fileBreakpoints.length - 1 - i];
+			const line = breakpoint.location.range.start.line;
+		
+			if (line < activeEditor.selection.active.line) {
+				activeEditor.selection = new vscode.Selection(line, 0, line, 0);
+				activeEditor.revealRange(new vscode.Range(line, 0, line, 0));
+				return;
+			}
+		}
 	});
 
 	let setBreakpoint = vscode.commands.registerCommand('no-scroll.setBreakpoint', () => {
 		const activeEditor = vscode.window.activeTextEditor;
+		
 		if (!activeEditor) {
 			vscode.window.showInformationMessage('No active editor.');
 			return;
@@ -116,6 +119,7 @@ export function activate(context: vscode.ExtensionContext) {
 			bp.location.range.start.line === line
 		);
 	
+		// if breakpoint exists, remove it else add it
 		if (existingBreakpoints.length > 0) {
 			vscode.debug.removeBreakpoints(existingBreakpoints);
 		} else {
@@ -137,9 +141,9 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage('All breakpoints removed.');
 	});
 
+	context.subscriptions.push(setBreakpoint);
 	context.subscriptions.push(jumpToNextBreakpoint);
 	context.subscriptions.push(jumpToPreviousBreakpoint);
-	context.subscriptions.push(setBreakpoint);
 	context.subscriptions.push(removeAllBreakpoints);
 }
 

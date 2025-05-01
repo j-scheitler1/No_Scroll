@@ -65,6 +65,7 @@ function activate(context) {
             }
             return false;
         });
+        fileBreakpoints.sort((a, b) => a.location.range.start.line - b.location.range.start.line);
         if (fileBreakpoints.length === 0) {
             vscode.window.showInformationMessage('No breakpoints in this file.');
             return;
@@ -101,12 +102,13 @@ function activate(context) {
             }
             return false;
         });
+        fileBreakpoints.sort((a, b) => b.location.range.start.line - a.location.range.start.line);
         if (fileBreakpoints.length === 0) {
             vscode.window.showInformationMessage('No breakpoints in this file.');
             return;
         }
         for (let i = 0; i < fileBreakpoints.length; i++) {
-            const breakpoint = fileBreakpoints[i];
+            const breakpoint = fileBreakpoints[fileBreakpoints.length - 1 - i];
             const line = breakpoint.location.range.start.line;
             if (line < activeEditor.selection.active.line) {
                 activeEditor.selection = new vscode.Selection(line, 0, line, 0);
@@ -126,6 +128,7 @@ function activate(context) {
         const existingBreakpoints = vscode.debug.breakpoints.filter(bp => bp instanceof vscode.SourceBreakpoint &&
             bp.location.uri.toString() === uri.toString() &&
             bp.location.range.start.line === line);
+        // if breakpoint exists, remove it else add it
         if (existingBreakpoints.length > 0) {
             vscode.debug.removeBreakpoints(existingBreakpoints);
         }
@@ -143,9 +146,9 @@ function activate(context) {
         vscode.debug.removeBreakpoints(breakpoints);
         vscode.window.showInformationMessage('All breakpoints removed.');
     });
+    context.subscriptions.push(setBreakpoint);
     context.subscriptions.push(jumpToNextBreakpoint);
     context.subscriptions.push(jumpToPreviousBreakpoint);
-    context.subscriptions.push(setBreakpoint);
     context.subscriptions.push(removeAllBreakpoints);
 }
 // This method is called when your extension is deactivated
