@@ -165,7 +165,47 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.debug.removeBreakpoints(breakpoints);
 		vscode.window.showInformationMessage('All breakpoints removed.');
 	});
+	let toggleBetweenFiles = vscode.commands.registerCommand('no-scroll.toggleBetweenFiles', async () => {
+		const activeEditor = vscode.window.activeTextEditor;
+		if (!activeEditor) {
+			vscode.window.showInformationMessage('No active editor.');
+			return;
+		}
 	
+		const currentUri = activeEditor.document.uri;
+	
+		const activeGroup = vscode.window.tabGroups.activeTabGroup;
+		const tabs = activeGroup.tabs;
+	
+		// Get all URIs of open tabs
+		const tabUris: vscode.Uri[] = tabs.map(tab => {
+			if (tab.input instanceof vscode.TabInputText || tab.input instanceof vscode.TabInputNotebook) {
+				return tab.input.uri;
+			}
+			if (tab.input instanceof vscode.TabInputTextDiff || tab.input instanceof vscode.TabInputNotebookDiff) {
+				return tab.input.modified;
+			}
+			return null!;
+		}).filter(Boolean);
+	
+		// Find current file index
+		const currentIndex = tabUris.findIndex(uri => uri.toString() === currentUri.toString());
+	
+		if (currentIndex === -1 || tabUris.length < 2) {
+			vscode.window.showInformationMessage('No other files to toggle to.');
+			return;
+		}
+	
+		const nextIndex = (currentIndex + 1) % tabUris.length;
+		const nextUri = tabUris[nextIndex];
+	
+		try {
+			await vscode.window.showTextDocument(nextUri, { viewColumn: vscode.ViewColumn.Active });
+		} catch (error) {
+			console.error('Failed to open file:', error);
+			vscode.window.showErrorMessage('Failed to open the next file.');
+		}
+	});
 	let restoreAllBreakpoints = vscode.commands.registerCommand('no-scroll.restoreAllBreakpoints', () => {
 		if(lastSavedBreakpoints.length === 0){
 			vscode.window.showInformationMessage('No saved breakpoints to restore.');
@@ -174,6 +214,8 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.debug.addBreakpoints(lastSavedBreakpoints);
 		vscode.window.showInformationMessage('Saved breakpoints restored.');
 	});
+  
+  context.subscriptions.push(toggleBetweenFiles);
 	context.subscriptions.push(jumpToNextBreakpoint);
 	context.subscriptions.push(jumpToPreviousBreakpoint);
 	context.subscriptions.push(setBreakpoint);
