@@ -1,33 +1,28 @@
-# 🧭 No Scroll
+## What is this?
 
-> _“Breakpoints, but better.”_  
-> – Probably not Einstein, but still a good quote
+**No Scroll** is a Visual Studio Code extension that makes **breakpoints useful** for navigation.
 
-## 🛠️ What is this?
+Have you ever been scrolling up and down on the one file just to read the same method or block of code over and over while losing your previous spot?
 
-**No Scroll** is a Visual Studio Code extension that makes **breakpoints actually useful** for navigation.
-
-You know how you carefully sprinkle breakpoints all over your code, like digital breadcrumbs… only to never use them again unless you're debugging?
-
-Well, guess what? **Now you can teleport to them.**  
-Think of this as your personal wormhole generator for breakpoints.
+Well now you can warp to breakpoints set in any file with the commands below.
 
 ---
 
-## ✨ Features
+## Features
 
 | Command                         | What It Does                                               |
 |--------------------------------|-------------------------------------------------------------|
-| 🧭 `Jump to Next Breakpoint`    | Warp to the next breakpoint in your current file.          |
-| 🧭 `Jump to Previous Breakpoint`| U-turn back to the last one like a boss.                   |
-| 🎯 `Set Breakpoint`             | One tap to toggle a breakpoint on the current line.        |
-| 💣 `Remove All Breakpoints`     | Nuke all breakpoints, optionally saving them first.        |
-| 💾 `Restore Breakpoints`        | Feeling regret? Undo your destruction and bring them back. |
-| 🔁 `Toggle Between Files`       | Bounce between open files like you're flipping TV channels.|
+|  `Jump to Next Breakpoint`    | Warp to the next breakpoint in your current file.          |
+|  `Jump to Previous Breakpoint`| Warp back to the last breakpoint in your current file.     |
+|  `Set Breakpoint`             | One tap to toggle a breakpoint on the current line.        |
+|  `Remove All Breakpoints`     | Delete all breakpoints in current file, optionally saving them first.        |
+|  `Restore Breakpoints`        | Undo your deleted breakpoints and bring them back. 
+|
+|  `Toggle Between Files`       | Bounce between open files in the active editor.|
 
 ---
 
-## 🎹 Default Keybindings (Customizable)
+## Default Keybindings (Customizable)
 
 | Shortcut            | Command                         |
 |---------------------|----------------------------------|
@@ -42,31 +37,31 @@ You can always rebind these in your VS Code keybindings settings.
 
 ---
 
-## 🤝 Authors
+## Authors
 
 Created by:
 
 - **Josh Scheitler**  
 - **Jason Bakke**
 
-We believe breakpoints should be more than tiny red dots.  
-They should **take you places**.
+---
+
+## Why Should I Use This?
+
+Reducing the mental tax of finding what you are supposed to be looking at will greatly benifit productivity in the long run. It will also save the life of your scroll wheel by 143% according to us.
 
 ---
 
-## 🧪 Why Should I Use This?
-
-Because scrolling is for peasants.
-
-You already marked the important lines in your file using breakpoints. Why not *use* them like bookmarks from the future?
-
-Give your mouse a break. Give your fingers a reason to stay on the keyboard.
-
----
-
-## 📦 Installation
+## Installation
 
 Search for `No Scroll` in the [VS Code Marketplace](https://marketplace.visualstudio.com/) or install via CLI:
 
 ```bash
 code --install-extension no-scroll
+* * *
+* * *
+* * *
+* * *
+* * *
+* * *
+* * *
