@@ -1,71 +1,72 @@
-# no-scroll README
+# 🧭 No Scroll
 
-This is the README for your extension "no-scroll". After writing up a brief description, we recommend including the following sections.
+> _“Breakpoints, but better.”_  
+> – Probably not Einstein, but still a good quote
 
-## Features
+## 🛠️ What is this?
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+**No Scroll** is a Visual Studio Code extension that makes **breakpoints actually useful** for navigation.
 
-For example if there is an image subfolder under your extension project workspace:
+You know how you carefully sprinkle breakpoints all over your code, like digital breadcrumbs… only to never use them again unless you're debugging?
 
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+Well, guess what? **Now you can teleport to them.**  
+Think of this as your personal wormhole generator for breakpoints.
 
 ---
 
-## Following extension guidelines
+## ✨ Features
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+| Command                         | What It Does                                               |
+|--------------------------------|-------------------------------------------------------------|
+| 🧭 `Jump to Next Breakpoint`    | Warp to the next breakpoint in your current file.          |
+| 🧭 `Jump to Previous Breakpoint`| U-turn back to the last one like a boss.                   |
+| 🎯 `Set Breakpoint`             | One tap to toggle a breakpoint on the current line.        |
+| 💣 `Remove All Breakpoints`     | Nuke all breakpoints, optionally saving them first.        |
+| 💾 `Restore Breakpoints`        | Feeling regret? Undo your destruction and bring them back. |
+| 🔁 `Toggle Between Files`       | Bounce between open files like you're flipping TV channels.|
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+---
 
-## Working with Markdown
+## 🎹 Default Keybindings (Customizable)
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+| Shortcut            | Command                         |
+|---------------------|----------------------------------|
+| `Ctrl + D`          | Jump to **Next Breakpoint**      |
+| `Ctrl + S`          | Jump to **Previous Breakpoint**  |
+| `Ctrl + B`          | **Toggle** Breakpoint            |
+| `Ctrl + Shift + D`  | **Remove All** Breakpoints       |
+| `Ctrl + Shift + S`  | **Restore** Saved Breakpoints    |
+| `Ctrl + Shift + A`  | **Toggle** Between Open Files    |
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+You can always rebind these in your VS Code keybindings settings.
 
-## For more information
+---
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+## 🤝 Authors
 
-**Enjoy!**
+Created by:
+
+- **Josh Scheitler**  
+- **Jason Bakke**
+
+We believe breakpoints should be more than tiny red dots.  
+They should **take you places**.
+
+---
+
+## 🧪 Why Should I Use This?
+
+Because scrolling is for peasants.
+
+You already marked the important lines in your file using breakpoints. Why not *use* them like bookmarks from the future?
+
+Give your mouse a break. Give your fingers a reason to stay on the keyboard.
+
+---
+
+## 📦 Installation
+
+Search for `No Scroll` in the [VS Code Marketplace](https://marketplace.visualstudio.com/) or install via CLI:
+
+```bash
+code --install-extension no-scroll
