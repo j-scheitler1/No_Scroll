@@ -2,7 +2,7 @@
   "name": "no-scroll",
   "displayName": "No Scroll",
   "description": "Easily Traverse around any file through breakpoints.",
-  "publisher": "Josh Scheitler",
+  "publisher": "j-scheitler",
   "icon": "No_Scroll/images/logo_128.jpg",
   "repository": {
     "type": "git",
@@ -76,6 +76,14 @@
       }
     ]
   },
+  "author": {
+    "name": "Josh Scheitler"
+  },
+  "contributors": [
+    {
+      "name": "Jason Bakke"
+    }
+  ],
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
