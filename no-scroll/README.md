@@ -27,7 +27,7 @@ Well now you can warp to breakpoints set in any file with the commands below.
 | Shortcut            | Command                         |
 |---------------------|----------------------------------|
 | `Ctrl + D`          | Jump to **Next Breakpoint**      |
-| `Ctrl + S`          | Jump to **Previous Breakpoint**  |
+| `Ctrl + Alt + S`    | Jump to **Previous Breakpoint**  |
 | `Ctrl + B`          | **Toggle** Breakpoint            |
 | `Ctrl + Shift + D`  | **Remove All** Breakpoints       |
 | `Ctrl + Shift + S`  | **Restore** Saved Breakpoints    |
