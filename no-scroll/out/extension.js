@@ -142,6 +142,37 @@ function activate(context) {
             vscode.debug.addBreakpoints([breakpoint]);
         }
     });
+    let setBreakpointAtLine = vscode.commands.registerCommand('no-scroll.setBreakpointAtLine', async () => {
+        const activeEditor = vscode.window.activeTextEditor;
+        if (!activeEditor) {
+            vscode.window.showInformationMessage('No active editor.');
+            return;
+        }
+        const totalLines = activeEditor.document.lineCount;
+        const input = await vscode.window.showInputBox({
+            prompt: 'Enter a line number (1-${totalLines})',
+            validateInput: (value) => {
+                const num = Number(value);
+                if (!/^\d+$/.test(value))
+                    return 'Please enter a number.';
+                if (num < 1 || num > totalLines)
+                    return 'Number must be between 1 and $(totalLines).';
+                return null;
+            }
+        });
+        const line = input !== undefined ? parseInt(input, 10) - 1 : 0;
+        const uri = activeEditor.document.uri;
+        const existingBreakpoints = vscode.debug.breakpoints.filter(bp => bp instanceof vscode.SourceBreakpoint &&
+            bp.location.uri.toString() === uri.toString() &&
+            bp.location.range.start.line === line);
+        if (existingBreakpoints.length > 0) {
+            vscode.debug.removeBreakpoints(existingBreakpoints);
+        }
+        else {
+            const breakpoint = new vscode.SourceBreakpoint(new vscode.Location(uri, new vscode.Position(line, 0)));
+            vscode.debug.addBreakpoints([breakpoint]);
+        }
+    });
     let removeAllBreakpoints = vscode.commands.registerCommand('no-scroll.removeAllBreakpoints', async () => {
         const breakpoints = vscode.debug.breakpoints;
         if (breakpoints.length === 0) {
@@ -209,6 +240,7 @@ function activate(context) {
     context.subscriptions.push(jumpToNextBreakpoint);
     context.subscriptions.push(jumpToPreviousBreakpoint);
     context.subscriptions.push(setBreakpoint);
+    context.subscriptions.push(setBreakpointAtLine);
     context.subscriptions.push(removeAllBreakpoints);
     context.subscriptions.push(restoreAllBreakpoints);
 }

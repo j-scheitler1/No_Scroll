@@ -42,6 +42,10 @@
       {
         "command": "no-scroll.restoreAllBreakpoints",
         "title": "Restore Breakpoints"
+      },
+      {
+        "command": "no-scroll.setBreakpointAtLine",
+        "title": "Set Breakpoint at Line"
       }
     ],
     "keybindings": [
@@ -72,6 +76,11 @@
       {
         "command": "no-scroll.restoreAllBreakpoints",
         "key": "ctrl+shift+s",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "no-scroll.setBreakpointAtLine",
+        "key": "alt+d",
         "when": "editorTextFocus"
       }
     ]
