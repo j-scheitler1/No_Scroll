@@ -15,9 +15,9 @@ Well now you can warp to breakpoints set in any file with the commands below.
 |  `Jump to Next Breakpoint`    | Warp to the next breakpoint in your current file.          |
 |  `Jump to Previous Breakpoint`| Warp back to the last breakpoint in your current file.     |
 |  `Set Breakpoint`             | One tap to toggle a breakpoint on the current line.        |
+|  `Set Breakpoint At Line`      | Input line in current file to add a breakpoint at.         |
 |  `Remove All Breakpoints`     | Delete all breakpoints in current file, optionally saving them first.        |
-|  `Restore Breakpoints`        | Undo your deleted breakpoints and bring them back. 
-|
+|  `Restore Breakpoints`        | Undo your deleted breakpoints and bring them back.         |
 |  `Toggle Between Files`       | Bounce between open files in the active editor.|
 
 ---
@@ -29,6 +29,7 @@ Well now you can warp to breakpoints set in any file with the commands below.
 | `Ctrl + D`          | Jump to **Next Breakpoint**      |
 | `Ctrl + S`          | Jump to **Previous Breakpoint**  |
 | `Ctrl + B`          | **Toggle** Breakpoint            |
+| `Alt + D`          | **Toggle** Breakpoint At Line     |
 | `Ctrl + Shift + D`  | **Remove All** Breakpoints       |
 | `Ctrl + Shift + S`  | **Restore** Saved Breakpoints    |
 | `Ctrl + Shift + A`  | **Toggle** Between Open Files    |
