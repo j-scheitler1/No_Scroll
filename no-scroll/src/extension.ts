@@ -153,7 +153,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		const totalLines = activeEditor.document.lineCount;
 		const input = await vscode.window.showInputBox({
-			prompt: 'Enter a line number (1-${totalLines})',
+			prompt: `Enter a line number (1-${totalLines})`,
 			validateInput: (value) => {
 				const num = Number(value);
 				if(!/^\d+$/.test(value)) return 'Please enter a number.';
