@@ -157,7 +157,7 @@ export function activate(context: vscode.ExtensionContext) {
 			validateInput: (value) => {
 				const num = Number(value);
 				if(!/^\d+$/.test(value)) return 'Please enter a number.';
-				if(num < 1 || num > totalLines) return 'Number must be between 1 and $(totalLines).';
+				if(num < 1 || num > totalLines) return `Number must be between 1 and ${totalLines}.`;
 				return null;
 			}
 		});

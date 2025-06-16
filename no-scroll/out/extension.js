@@ -156,7 +156,7 @@ function activate(context) {
                 if (!/^\d+$/.test(value))
                     return 'Please enter a number.';
                 if (num < 1 || num > totalLines)
-                    return 'Number must be between 1 and $(totalLines).';
+                    return `Number must be between 1 and ${totalLines}.`;
                 return null;
             }
         });
